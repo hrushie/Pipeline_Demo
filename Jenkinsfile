@@ -2,17 +2,30 @@ pipeline {
   agent any
   options{
   	timestamps()
+	gitLabConnection('')
 
   		 }
 
 	parameters{
-		string(defaultValue: 'master', description: '', name: 'ARCH_BRANCH')
-		string(defaultValue: 'master', description: '', name: 'APPCORE_BRANCH')
-		string(defaultValue: 'master', description: '', name: 'UIKIT_BRANCH')
-		string(defaultValue: 'master', description: '', name: 'SDK_BRANCH')}
+		string(defaultValue: 'test_pipeline', description: '', name: 'ARCH_BRANCH')
+		string(defaultValue: 'develop', description: '', name: 'APPCORE_BRANCH')
+		string(defaultValue: 'develop', description: '', name: 'UIKIT_BRANCH')
+		string(defaultValue: 'feature/GMA-5.x', description: '', name: 'SDK_BRANCH')}
 
 
   stages {
+
+  	stage('SCM') {
+
+		steps{
+  		checkout([$class: 'GitSCM',
+			  branches: [[name: 'test_pipeline']],
+			  doGenerateSubmoduleConfigurations: false,
+			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
+			  submoduleCfg: [],
+			  userRemoteConfigs: [[credentialsId: 'c39b0118-cfc4-4024-ac99-cdf2f69ed733', url: 'ssh://git@coderepository.mcd.com:8443/archus/android.git']]])
+			}
+  		}
 
         stage('Checkout') {
           steps {
@@ -49,11 +62,11 @@ pipeline {
         }
 
 
-  stage('Build') {
+   stage('Build') {
       steps {
         sh '''
 	  #run build
-	 ./gradlew clean assembleQARelease
+	  ./gradlew clean assembleQARelease
 	 '''
     }
     }
@@ -65,7 +78,7 @@ pipeline {
     }
 */
 
- /*   stage('Hockeyapp') {
+    stage('Hockeyapp') {
     	steps {
     			step([$class: 'HockeyappRecorder',
     			applications: [[apiToken: 'd90ccdd12e7440518048400adee5bb23',
@@ -78,7 +91,7 @@ pipeline {
     			debugMode: false,
     			failGracefully: false])
     	 	 }
-}*/
+}
     }
  /*	post {
 
@@ -102,7 +115,7 @@ pipeline {
           		  <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
           		recipientProviders: [[$class: 'rushikesh.jawali@capgemini.com']]
        			 	)
-
+            
         }
     } */
 }
