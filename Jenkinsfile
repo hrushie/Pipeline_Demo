@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'android' }
+  agent any
   options{
   	timestamps()
 	gitLabConnection('')
