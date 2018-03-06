@@ -121,7 +121,7 @@ stage('Test') {
     }
 
 
-    stage('Hockeyapp') {
+/*    stage('Hockeyapp') {
     	steps {
     			step([$class: 'HockeyappRecorder',
     			applications: [[apiToken: 'd90ccdd12e7440518048400adee5bb23',
@@ -134,7 +134,7 @@ stage('Test') {
     			debugMode: false,
     			failGracefully: false])
     	 	 }
-}
+} */
     }
  /*	post {
 
