@@ -37,7 +37,7 @@ MCDCONNECT_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app/libraries/android-
 			echo "*************Checking out McDAppARCH Repository*****************"
 cd "${MCDARCH_DIR}"
 git config -f .gitmodules submodule.libraries/android-mcd-core-app.branch beta/DAP-6416
-git checkout beta/DAP-6416
+git checkout -f beta/DAP-6416
 git branch --set-upstream-to=origin/beta/DAP-6416 beta/DAP-6416
 git pull
 git config -f .gitmodules submodule.libraries/android-mcd-core-app.branch beta/DAP-6416
@@ -53,7 +53,7 @@ git log --pretty=format:'%h' -n 1
 echo "*************Checking out McDAppCore Repository*****************"
 cd "${MCDARCH_DIR}"
 cd "${MCDAPPCORE_DIR}"
-git checkout beta/DAP-6416
+git checkout -f beta/DAP-6416
 git branch --set-upstream-to=origin/beta/DAP-6416 beta/DAP-6416
 git pull
 git config -f .gitmodules submodule.libraries/android-mcd-uikit.branch beta/DAP-6416
@@ -80,7 +80,7 @@ cd "${MCDARCH_DIR}"
 git config -f .gitmodules submodule.libraries/android-gma-sdk-sapient.branch beta/DAP-6416
 cd "${MCDCONNECT_DIR}"
 git gc --prune=now
-git checkout beta/DAP-6416
+git checkout -f beta/DAP-6416
 git pull
 git branch
 git reset --hard
@@ -93,7 +93,7 @@ git reset --hard
 cd "${MCDARCH_DIR}"
 cd "${MCDUIKIT_DIR}"
 git gc --prune=now
-git checkout beta/DAP-6416
+git checkout -f beta/DAP-6416
 git pull
 git branch
 git reset --hard
