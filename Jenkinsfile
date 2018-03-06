@@ -7,10 +7,10 @@ pipeline {
   		 }
 
 	parameters{
-		string(defaultValue: 'beta/DAP-6416', description: '', name: 'ARCH_BRANCH')
-		string(defaultValue: 'beta/DAP-6416', description: '', name: 'APPCORE_BRANCH')
-		string(defaultValue: 'beta/DAP-6416', description: '', name: 'UIKIT_BRANCH')
-		string(defaultValue: 'beta/DAP-6416', description: '', name: 'SDK_BRANCH')}
+		string(defaultValue: 'dap-develop', description: '', name: 'ARCH_BRANCH')
+		string(defaultValue: 'dap-develop', description: '', name: 'APPCORE_BRANCH')
+		string(defaultValue: 'dap-develop', description: '', name: 'UIKIT_BRANCH')
+		string(defaultValue: 'dap-develop', description: '', name: 'SDK_BRANCH')}
 
 
   stages {
@@ -114,11 +114,11 @@ git reset --hard
     }
     }
 
-stage('Test') {
+/*stage('Test') {
       steps {
         sh './gradlew cleanTest test jacocoTestReport --continue --info'
       }
-    }
+    } /*
 
 
 /*    stage('Hockeyapp') {
