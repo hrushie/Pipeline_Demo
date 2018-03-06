@@ -7,10 +7,10 @@ pipeline {
   		 }
 
 	parameters{
-		string(defaultValue: 'De-develop', description: '', name: 'ARCH_BRANCH')
-		string(defaultValue: 'De-develop', description: '', name: 'APPCORE_BRANCH')
-		string(defaultValue: 'De-develop', description: '', name: 'UIKIT_BRANCH')
-		string(defaultValue: 'De-develop', description: '', name: 'SDK_BRANCH')}
+		string(defaultValue: 'beta/DAP-6416', description: '', name: 'ARCH_BRANCH')
+		string(defaultValue: 'beta/DAP-6416', description: '', name: 'APPCORE_BRANCH')
+		string(defaultValue: 'beta/DAP-6416', description: '', name: 'UIKIT_BRANCH')
+		string(defaultValue: 'beta/DAP-6416', description: '', name: 'SDK_BRANCH')}
 
 
   stages {
@@ -23,7 +23,7 @@ pipeline {
 			  doGenerateSubmoduleConfigurations: false,
 			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true], [$class: 'WipeWorkspace']],
 			  submoduleCfg: [],
-			  userRemoteConfigs: [[credentialsId: 'c39b0118-cfc4-4024-ac99-cdf2f69ed733', url: 'ssh://git@coderepository.mcd.com:8443/gma5_de/android.git']]])
+			  userRemoteConfigs: [[credentialsId: 'c39b0118-cfc4-4024-ac99-cdf2f69ed733', url: 'ssh://git@10.1.13.198:8443/gma5_us/android.git']]])
 			}
   		}
 
