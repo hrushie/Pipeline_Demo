@@ -114,11 +114,11 @@ git reset --hard
     }
     }
 
-/*stage('Test') {
+stage('Test') {
       steps {
         sh './gradlew cleanTest test jacocoTestReport --continue --info'
       }
-    } /*
+    } 
 
 
 /*    stage('Hockeyapp') {
