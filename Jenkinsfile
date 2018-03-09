@@ -98,6 +98,63 @@ git reset --hard
 #git submodule update --checkout --recursive
 #git checkout ${ARCH_BRANCH}
 #git log --pretty=format:'%h' -n 1'''
+		  
+sh '''
+#echo "*******************Checking if date is empty then set to 1 day limit***********"
+#if [ -z "${START_DATE}" ] || [ -z "${END_DATE}" ]; then
+#	START_DATE="$(date -v -1d +'%b %d %Y')"
+#	END_DATE="$(date +'%b %d %Y')"
+#	echo "Start Date: ""$START_DATE"
+#    echo "End Date: ""$END_DATE"
+#fi
+
+
+RELEASE_NOTES1=""
+NEWLINE=$'\n'
+echo "BUILD_TIMESTAMP"=`date +'%Y-%m-%d %H:%M:%S:%Z'` > timestamp.txt
+echo "*******************Updating submodule*************************"
+MCDARCH_DIR="${WORKSPACE}"
+MCDAPPCORE_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app"
+MCDUIKIT_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app/libraries/android-mcd-uikit"
+MCDCONNECT_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app/libraries/android-gma-sdk-sapient"
+
+echo "*************Checking out McDAppARCH Repository*****************"
+
+cd "${MCDARCH_DIR}"
+git checkout "${ARCH_BRANCH}"
+git pull
+#RELEASE_NOTES1="$RELEASE_NOTES1""$NEWLINE""APP commit id""$NEWLINE"
+RELEASE_NOTES1=$RELEASE_NOTES1$(git log --no-merges '--pretty=format:%h : %s %cD' --since="$START_DATE" --until="$END_DATE")
+
+echo "*************Checking out McDAppCore Repository*****************"
+
+cd "${MCDAPPCORE_DIR}"
+git checkout "${APPCORE_BRANCH}"
+git pull
+#RELEASE_NOTES1="$RELEASE_NOTES1""$NEWLINE""Core Layer commit id""$NEWLINE"
+RELEASE_NOTES1=$RELEASE_NOTES1$(git log --no-merges '--pretty=format:%h : %s %cD' --since="$START_DATE" --until="$END_DATE")
+
+echo "*************Checking out McDUIKit Repository*****************"
+
+cd "${MCDUIKIT_DIR}"
+git checkout "${UIKIT_BRANCH}"
+git pull
+#RELEASE_NOTES1="$RELEASE_NOTES1""$NEWLINE""UI Kit commit id""$NEWLINE"
+RELEASE_NOTES1=$RELEASE_NOTES1$(git log --no-merges '--pretty=format:%h : %s %cD' --since="$START_DATE" --until="$END_DATE")
+
+echo "*************Checking out McDonaldsSDK Repository*****************"
+
+cd "${MCDCONNECT_DIR}"
+git checkout "${SDK_BRANCH}"
+git pull
+#RELEASE_NOTES1="$RELEASE_NOTES1""$NEWLINE""SDK Layer commit id""$NEWLINE"
+RELEASE_NOTES1=$RELEASE_NOTES1$(git log --no-merges '--pretty=format:%h : %s %cD' --since="$START_DATE" --until="$END_DATE")
+
+cd $WORKSPACE
+echo "$RELEASE_NOTES1"
+#echo `cat timestamp.txt` > release_notes.txt
+echo "$NEWLINE""$RELEASE_NOTES" >> release_notes.txt
+echo "$NEWLINE""$RELEASE_NOTES1" >> release_notes.txt'''
 
 
 
@@ -134,7 +191,7 @@ git reset --hard
     			debugMode: false,
     			failGracefully: false])
     	 	 }
-} /*
+} */
     }
  post {
 
