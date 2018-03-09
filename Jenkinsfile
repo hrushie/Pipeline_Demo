@@ -21,7 +21,7 @@ pipeline {
   		checkout([$class: 'GitSCM',
 			  branches: [[name: 'dap-develop']],
 			  doGenerateSubmoduleConfigurations: false,
-			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true], [$class: 'WipeWorkspace']],
+			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
 			  submoduleCfg: [],
 			  userRemoteConfigs: [[credentialsId: 'c39b0118-cfc4-4024-ac99-cdf2f69ed733', url: 'ssh://git@coderepository.mcd.com:8443/gma5_us/android.git']]])
 			}
@@ -157,9 +157,9 @@ echo "$NEWLINE""$RELEASE_NOTES" >> release_notes.txt
 echo "$NEWLINE""$RELEASE_NOTES1" >> release_notes.txt'''
 sh ''' MCDAPP_DIR=${WORKSPACE}
 cd ..
-cp /android/uskeystore/release.keystore .
+cp -f /android/uskeystore/release.keystore .
 cd "${MCDAPP_DIR}"
-cp /android/uskeystore/keystore.properties .'''
+cp -f /android/uskeystore/keystore.properties .'''
 
 
           }
@@ -170,7 +170,7 @@ cp /android/uskeystore/keystore.properties .'''
       steps {
         sh '''
 	  #run build
-	  ./gradlew clean assembleQARelease
+	  ./gradlew clean assembleUSRelease
 	 '''
     }
     }
