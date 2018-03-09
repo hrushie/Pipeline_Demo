@@ -157,9 +157,9 @@ echo "$NEWLINE""$RELEASE_NOTES" >> release_notes.txt
 echo "$NEWLINE""$RELEASE_NOTES1" >> release_notes.txt'''
 sh ''' MCDAPP_DIR=${WORKSPACE}
 cd ..
-cp /Users/jenkins/uskeystore/release.keystore .
+cp /android/uskeystore/release.keystore .
 cd "${MCDAPP_DIR}"
-cp /Users/jenkins/uskeystore/keystore.properties .'''
+cp /android/uskeystore/keystore.properties .'''
 
 
           }
