@@ -182,20 +182,21 @@ cp /android/uskeystore/keystore.properties .'''
     } */
 
 
-  /*  stage('Hockeyapp') {
+    stage('Hockeyapp') {
     	steps {
-    			step([$class: 'HockeyappRecorder',
-    			applications: [[apiToken: 'd90ccdd12e7440518048400adee5bb23',
-    			downloadAllowed: false,
-    			filePath: 'app/build/outputs/apk/app-US-release.apk',
-    			mandatory: false,
-    			notifyTeam: false,
-    			releaseNotesMethod: [$class: 'NoReleaseNotes'],
-    			uploadMethod: [$class: 'AppCreation', publicPage: false]]],
-    			debugMode: false,
-    			failGracefully: false])
+    			step([$class: 'HockeyappRecorder', 
+			applications: [[apiToken: '41f5cf2e56fe48d2bd099f98a4011184'
+			, downloadAllowed: false, 
+			filePath: 'app/build/outputs/apk/app-US-release.apk', 
+			mandatory: false, notifyTeam: true, 
+			releaseNotesMethod: [$class: 'NoReleaseNotes'], 
+			uploadMethod: [$class: 'VersionCreation', 
+			appId: '047bbc5ea849465886898cdd07fde141']]], 
+			debugMode: false, 
+			failGracefully: false])
+
     	 	 }
-} */
+} 
     }
  post {
 
