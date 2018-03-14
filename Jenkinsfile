@@ -29,75 +29,7 @@ pipeline {
 
         stage('Checkout') {
           steps {
-            sh '''
-	    MCDARCH_DIR=${WORKSPACE}
-MCDAPPCORE_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app"
-MCDUIKIT_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app/libraries/android-mcd-uikit"
-MCDCONNECT_DIR="${MCDARCH_DIR}/libraries/android-mcd-core-app/libraries/android-gma-sdk-sapient"
-			echo "*************Checking out McDAppARCH Repository*****************"
-cd "${MCDARCH_DIR}"
-git config -f .gitmodules submodule.libraries/android-mcd-core-app.branch beta/DAP-6416
-git checkout beta/DAP-6416
-git branch --set-upstream-to=origin/beta/DAP-6416 beta/DAP-6416
-git pull
-git config -f .gitmodules submodule.libraries/android-mcd-core-app.branch beta/DAP-6416
-git submodule
-git submodule init
-git submodule sync
-git config --get remote.origin.url
-git submodule update --init --remote --recursive
-git branch
-#git submodule update --init --recursive libraries/android-mcd-core-app
-git log --pretty=format:'%h' -n 1
-
-echo "*************Checking out McDAppCore Repository*****************"
-cd "${MCDARCH_DIR}"
-cd "${MCDAPPCORE_DIR}"
-git checkout beta/DAP-6416
-git branch --set-upstream-to=origin/beta/DAP-6416 beta/DAP-6416
-git pull
-git config -f .gitmodules submodule.libraries/android-mcd-uikit.branch beta/DAP-6416
-git config -f .gitmodules submodule.libraries/android-gma-sdk-sapient.branch beta/DAP-6416
-#git submodule update --remote --recursive
-git submodule
-git submodule init
-git submodule sync
-git config --get remote.origin.url
-git submodule update --init --remote --recursive
-git branch
-git branch
-git reset --hard
-#git pull
-#git submodule update --checkout --recursive
-git checkout beta/DAP-6416
-git log --pretty=format:'%h' -n 1
-
-#echo "*************Checking out McDonaldsSDK Repository*****************"
-cd "${MCDARCH_DIR}"
-git config -f .gitmodules submodule.libraries/android-gma-sdk-sapient.branch beta/DAP-6416
-cd "${MCDCONNECT_DIR}"
-git gc --prune=now
-git checkout beta/DAP-6416
-git pull
-git branch
-git reset --hard
-#git pull
-#git submodule update --checkout --recursive
-#git checkout ${ARCH_BRANCH}
-#git log --pretty=format:'%h' -n 1
-
-#echo "*************Checking out McDUIKit Repository*****************"
-cd "${MCDARCH_DIR}"
-cd "${MCDUIKIT_DIR}"
-git gc --prune=now
-git checkout beta/DAP-6416
-git pull
-git branch
-git reset --hard
-#git pull
-#git submodule update --checkout --recursive
-#git checkout ${ARCH_BRANCH}
-#git log --pretty=format:'%h' -n 1'''
+            sh './Checkout.sh'
 		  
 sh '''
 #echo "*******************Checking if date is empty then set to 1 day limit***********"
