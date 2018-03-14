@@ -18,6 +18,7 @@ pipeline {
   	stage('SCM') {
 
 		steps{
+		checkout scm,
   		checkout([$class: 'GitSCM',
 			  branches: [[name: 'dap-develop']],
 			  doGenerateSubmoduleConfigurations: false,
