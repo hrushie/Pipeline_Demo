@@ -18,7 +18,6 @@ pipeline {
   	stage('SCM') {
 
 		steps{
-		checkout scm,
   		checkout([$class: 'GitSCM',
 			  branches: [[name: 'dap-develop']],
 			  doGenerateSubmoduleConfigurations: false,
@@ -30,7 +29,7 @@ pipeline {
 
         stage('Checkout') {
           steps {
-            sh './Checkout.sh'
+            sh 'cdr=$(pwd); $cdr/jenkins.sh "Checkout.sh"'
 		  
 sh '''
 #echo "*******************Checking if date is empty then set to 1 day limit***********"
