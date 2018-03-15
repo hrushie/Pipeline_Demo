@@ -18,7 +18,7 @@ pipeline {
   	stage('SCM') {
 
 		steps{
-		dir('${env.JOB_NAME}')
+		dir(US-DEV)
 			{
   			checkout([$class: 'GitSCM',
 			  branches: [[name: 'dap-develop']],
