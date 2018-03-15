@@ -18,12 +18,15 @@ pipeline {
   	stage('SCM') {
 
 		steps{
-  		checkout([$class: 'GitSCM',
+		dir(${env.JOB_NAME})
+			{
+  			checkout([$class: 'GitSCM',
 			  branches: [[name: 'dap-develop']],
 			  doGenerateSubmoduleConfigurations: false,
-			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true]],
+			  extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', timeout: 15, trackingSubmodules: true][$class: 'WipeWorkspace']],
 			  submoduleCfg: [],
 			  userRemoteConfigs: [[credentialsId: 'c39b0118-cfc4-4024-ac99-cdf2f69ed733', url: 'ssh://git@coderepository.mcd.com:8443/gma5_us/android.git']]])
+				}
 			}
   		}
 
